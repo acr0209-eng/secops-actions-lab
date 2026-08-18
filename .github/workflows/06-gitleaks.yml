@@ -1,9 +1,5 @@
 name: "06 - gitleaks (secret scanning)"
 
-# 07-ci-summary.yml이 불러 쓰는 재사용 워크플로입니다. workflow_dispatch는
-# 이 도구 하나만 따로 돌려 보고 싶을 때를 위해 남겨 둡니다.
-# 문서: https://docs.github.com/actions/sharing-automations/reusing-workflows
-
 on:
   workflow_call:
   workflow_dispatch:
@@ -18,8 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # 전체 Git 히스토리를 받아 과거 커밋의 시크릿까지 검사
           fetch-depth: 0
 
       - name: Run gitleaks
         uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_ENABLE_COMMENTS: "false"
