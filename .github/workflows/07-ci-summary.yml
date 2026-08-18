@@ -106,6 +106,7 @@ jobs:
     uses: ./.github/workflows/06-gitleaks.yml
     permissions:
       contents: read
+      pull-requests: read
     secrets: inherit
 
   summary:
