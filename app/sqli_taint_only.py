@@ -20,6 +20,7 @@ app = flask.Flask(__name__)
 
 def search(cur):
     q = request.args.get("q")
-    prefix = "SELECT * FROM users WHERE name LIKE '%"
-    query = prefix + q + "%'"
-    cur.execute(query)
+cur.execute(
+    "SELECT * FROM users WHERE name LIKE ?",
+    (f"%{q}%",),
+)
